@@ -1,71 +1,48 @@
 <template>
-  <header class="page-header fade-in-up">
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
+  <header class="site-header" :class="{ scrolled: isScrolled }">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-text">MEDIA</span>
+      </div>
+
+      <nav class="nav-menu" :class="{ active: menuOpen }">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Program</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">What's On</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" :class="{ active: menuOpen }" @click="toggleMenu" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
-interface Props {
-  title?: string
-  description?: string
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const menuOpen = ref(false)
+const isScrolled = ref(false)
+
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
 }
 
-withDefaults(defineProps<Props>(), {
-  title: 'Movie Discovery',
-  description: 'Explore popular movies and their details'
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
-
-<style scoped lang="scss">
-.page-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  p {
-    font-size: 1.25rem;
-    margin: 0;
-    opacity: 0.95;
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .page-header {
-    padding: 3rem 1.5rem;
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1rem;
-    }
-  }
-}
-</style>

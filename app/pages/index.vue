@@ -1,38 +1,51 @@
 <template>
-  <div class="container">
-      <div v-if="pending" class="loading">
-        <div class="spinner"></div>
-        <p>Loading movies...</p>
+  <div class="home-page">
+    <section class="hero">
+      <div class="hero-background">
+        <img src="~/assets/img/hero-background.jpg" alt="Hero Background" />
       </div>
-
-      <div v-else-if="error" class="error">
-        <p>Failed to load movies. Please try again later.</p>
-      </div>
-
-      <div v-else class="movie-grid">
-        <div
-          v-for="(movie, index) in movies"
-          :key="movie.imdbID"
-          class="card scroll-animate"
-          :style="{ animationDelay: `${index * 0.1}s` }"
-          @click="navigateToDetail(movie.imdbID)"
-        >
-          <NuxtImg
-            :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
-            :alt="movie.Title"
-            loading="lazy"
-            quality="90"
-            fit="cover"
-            format="webp"
-            @error="handleImageError"
-          />
-          <div class="card-content">
-            <h3>{{ movie.Title }}</h3>
-            <p>{{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}</p>
-            <span class="year">{{ movie.Year }}</span>
+      <div class="hero-content">
+        <div class="title-wrapper">
+          <span class="hero-title">BRINGING</span>
+          <span class="hero-title">THE UNSEEN</span>
+          <span class="hero-title">ON SCREEN</span>
+        </div>
+        <div class="description-wrapper">
+          <div class="img-wrapper">
+            <img src="~/assets/img/person.jpg" alt="Hero Background" />
           </div>
+          <p>We’re a global media company
+            that specializes in emerging markets. We find powerful stories from unique creators, and take them from
+            development & financing to production & distribution.</p>
         </div>
       </div>
+      <div class="gradient-overlay"></div>
+    </section>
+    <div class="container">
+      <section>
+        <div v-if="pending" class="loading">
+          <div class="spinner"></div>
+          <p>Loading movies...</p>
+        </div>
+
+        <div v-else-if="error" class="error">
+          <p>Failed to load movies. Please try again later.</p>
+        </div>
+
+        <div v-else class="movie-grid">
+          <div v-for="(movie, index) in movies" :key="movie.imdbID" class="card scroll-animate"
+            :style="{ animationDelay: `${index * 0.1}s` }" @click="navigateToDetail(movie.imdbID)">
+            <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
+              :alt="movie.Title" loading="lazy" quality="90" fit="cover" format="webp" @error="handleImageError" />
+            <div class="card-content">
+              <h3>{{ movie.Title }}</h3>
+              <p>{{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}</p>
+              <span class="year">{{ movie.Year }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -94,4 +107,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.home-page {
+  width: 100%;
+}
 </style>

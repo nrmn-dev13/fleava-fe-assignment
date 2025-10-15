@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <NuxtLink to="/" class="back-button fade-in-up">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -20,8 +20,13 @@
 
     <div v-else-if="movie" class="detail-container">
       <div class="detail-card scroll-animate">
-        <img :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
-          :alt="movie.Title" />
+        <NuxtImg
+          :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
+          :alt="movie.Title"
+          quality="95"
+          fit="cover"
+          format="webp"
+        />
         <div class="detail-content">
           <h1>{{ movie.Title }}</h1>
 

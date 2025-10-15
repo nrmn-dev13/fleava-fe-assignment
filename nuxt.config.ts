@@ -9,5 +9,7 @@ export default defineNuxtConfig({
     public: {
       omdbApiKey: '' // Will be automatically loaded from NUXT_PUBLIC_OMDB_API_KEY env variable
     }
-  }
+  },
+
+  modules: ['@nuxt/image']
 })

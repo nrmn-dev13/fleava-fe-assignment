@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <header class="page-header fade-in-up">
-      <h1>Movie Discovery</h1>
-      <p>Explore popular movies and their details</p>
-    </header>
-
-    <div class="container">
+  <div class="container">
       <div v-if="pending" class="loading">
         <div class="spinner"></div>
         <p>Loading movies...</p>
@@ -23,9 +17,14 @@
           :style="{ animationDelay: `${index * 0.1}s` }"
           @click="navigateToDetail(movie.imdbID)"
         >
-          <img
+          <NuxtImg
             :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
             :alt="movie.Title"
+            loading="lazy"
+            quality="90"
+            fit="cover"
+            format="webp"
+            @error="handleImageError"
           />
           <div class="card-content">
             <h3>{{ movie.Title }}</h3>
@@ -34,7 +33,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -51,8 +49,9 @@ interface Movie {
 }
 
 const { data, pending, error } = await useFetch<{ Search: Movie[] }>(
-  `https://www.omdbapi.com/?apikey=${config.public.omdbApiKey}&s=marvel&type=movie`,
+  `https://www.omdbapi.com/?apikey=${config.public.omdbApiKey}&s=movie&type=movie`,
   {
+    key: 'all-movies', // Static key for proper caching
     transform: (response) => response
   }
 )
@@ -66,6 +65,13 @@ const movies = computed(() => {
 
 const navigateToDetail = (imdbID: string) => {
   router.push(`/movie/${imdbID}`)
+}
+
+const handleImageError = (event: any) => {
+  if (event?.target) {
+    const target = event.target as HTMLImageElement
+    target.src = 'https://via.placeholder.com/300x450?text=No+Image'
+  }
 }
 
 onMounted(() => {

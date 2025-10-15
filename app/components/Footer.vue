@@ -9,8 +9,11 @@
       <div class="footer-section">
         <h4>Quick Links</h4>
         <nav class="footer-links">
-          <NuxtLink to="/">Home</NuxtLink>
-          <a href="https://www.omdbapi.com/" target="_blank" rel="noopener noreferrer">OMDb API</a>
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Program</a>
+          <a href="#">What's On</a>
+          <a href="#">Contact</a>
         </nav>
       </div>
 
@@ -38,9 +41,9 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  title: 'Movie Discovery',
+  title: 'MEDIA',
   description: 'Your go-to platform for exploring movies',
-  copyrightText: 'Movie Discovery'
+  copyrightText: 'MEDIA'
 })
 
 const currentYear = new Date().getFullYear()

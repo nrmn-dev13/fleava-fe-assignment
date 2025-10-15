@@ -20,6 +20,7 @@
         </div>
       </div>
       <div class="gradient-overlay"></div>
+      <div class="base-bottom"></div>
     </section>
     <div class="container">
       <section>

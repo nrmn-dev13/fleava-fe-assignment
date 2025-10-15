@@ -33,17 +33,40 @@
           <p>Failed to load movies. Please try again later.</p>
         </div>
 
-        <div v-else class="movie-grid">
-          <div v-for="(movie, index) in movies" :key="movie.imdbID" class="card scroll-animate"
-            :style="{ animationDelay: `${index * 0.1}s` }" @click="navigateToDetail(movie.imdbID)">
-            <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
-              :alt="movie.Title" loading="lazy" quality="90" fit="cover" format="webp" @error="handleImageError" />
-            <div class="card-content">
-              <h3>{{ movie.Title }}</h3>
-              <p>{{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}</p>
-              <span class="year">{{ movie.Year }}</span>
-            </div>
-          </div>
+        <div v-else class="movie-slider">
+          <Swiper
+            :modules="[SwiperNavigation]"
+            :slides-per-view="1"
+            :space-between="20"
+            :navigation="true"
+            :breakpoints="{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+            }"
+          >
+            <SwiperSlide v-for="(movie, index) in movies" :key="movie.imdbID">
+              <div class="card scroll-animate"
+                :style="{ animationDelay: `${index * 0.1}s` }" @click="navigateToDetail(movie.imdbID)">
+                <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
+                  :alt="movie.Title" loading="lazy" quality="90" fit="cover" format="webp" @error="handleImageError" />
+                <div class="card-content">
+                  <h3>{{ movie.Title }}</h3>
+                  <p>{{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}</p>
+                  <span class="year">{{ movie.Year }}</span>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </section>
     </div>
@@ -51,8 +74,14 @@
 </template>
 
 <script setup lang="ts">
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 const config = useRuntimeConfig()
 const router = useRouter()
+const SwiperNavigation = Navigation
 
 interface Movie {
   imdbID: string

@@ -1,0 +1,21 @@
+// ==========================================================================
+// Loading & Error States
+// ==========================================================================
+
+.loading,
+.error {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-light;
+  font-size: 1.3rem;
+}
+
+.loading {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-xl;
+
+  .spinner {
+    @include spinner(50px, 4px, $light-bg);
+  }
+}

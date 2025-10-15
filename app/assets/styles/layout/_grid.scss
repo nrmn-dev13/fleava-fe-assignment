@@ -1,0 +1,15 @@
+// ==========================================================================
+// Grid Layout
+// ==========================================================================
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($grid-min-column-width, 1fr));
+  gap: $grid-gap;
+  margin-top: $spacing-4xl;
+
+  @include respond-to(md) {
+    grid-template-columns: 1fr;
+    gap: $grid-gap-mobile;
+  }
+}

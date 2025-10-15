@@ -1,0 +1,28 @@
+// ==========================================================================
+// Header Component
+// ==========================================================================
+
+.page-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  color: $text-light;
+
+  h1 {
+    font-size: $font-size-6xl;
+    margin-bottom: $spacing-lg;
+    font-weight: $font-weight-bold;
+
+    @include respond-to(md) {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  p {
+    font-size: $font-size-2xl;
+    opacity: 0.9;
+
+    @include respond-to(md) {
+      font-size: $font-size-base;
+    }
+  }
+}

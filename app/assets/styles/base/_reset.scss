@@ -1,0 +1,31 @@
+// ==========================================================================
+// Base Reset & Global Styles
+// ==========================================================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  background: $gradient-primary;
+  min-height: 100vh;
+  color: $text-dark;
+  line-height: $line-height-base;
+}
+
+a {
+  @include link-reset;
+}
+
+button {
+  @include button-reset;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

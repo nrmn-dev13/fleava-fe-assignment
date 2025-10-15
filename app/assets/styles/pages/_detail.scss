@@ -1,0 +1,56 @@
+// ==========================================================================
+// Detail Page
+// ==========================================================================
+
+.detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $spacing-4xl $spacing-xl;
+
+  .detail-card {
+    background: $light-bg;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    box-shadow: $deep-shadow;
+
+    @media (min-width: $breakpoint-md) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    img {
+      @include image-cover;
+      min-height: 400px;
+    }
+
+    .detail-content {
+      padding: $spacing-4xl;
+
+      h1 {
+        font-size: $font-size-5xl;
+        margin-bottom: $spacing-xl;
+        color: $text-dark;
+
+        @include respond-to(md) {
+          font-size: $font-size-4xl;
+        }
+      }
+
+      .info-row {
+        margin-bottom: $spacing-lg;
+        font-size: $font-size-xl;
+
+        strong {
+          color: $primary-color;
+        }
+      }
+
+      .plot {
+        margin-top: 25px;
+        line-height: 1.8;
+        color: #555;
+        font-size: $font-size-lg;
+      }
+    }
+  }
+}

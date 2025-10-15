@@ -1,0 +1,25 @@
+// ==========================================================================
+// Button Component
+// ==========================================================================
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: 12px 24px;
+  background: $light-bg;
+  color: $text-dark;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  @include transition(background, transform);
+  text-decoration: none;
+  margin: $spacing-xl;
+
+  &:hover {
+    background: darken($light-bg, 5%);
+    transform: translateX(-5px);
+  }
+}

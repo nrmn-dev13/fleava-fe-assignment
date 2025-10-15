@@ -1,0 +1,55 @@
+// ==========================================================================
+// Animations
+// ==========================================================================
+
+// Fade In Up Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Spin Animation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Fade Animation Classes
+.fade-in-up {
+  animation: fadeInUp 0.6s $transition-ease-out forwards;
+}
+
+// Scroll Animation Classes
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity $transition-slow $transition-ease, transform $transition-slow $transition-ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Page Transitions
+.page-enter-active,
+.page-leave-active {
+  transition: all $transition-base $transition-ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}

@@ -7,7 +7,7 @@
     </div>
     <div class="footer-links footer-grid">
       <ul class="left">
-        <li><a href="" class="link">HOME</a></li>
+        <li><NuxtLink to="/" class="link">HOME</NuxtLink></li>
         <li><a href="" class="link">ABOUT US</a></li>
         <li><a href="" class="link">CORPORATE</a></li>
       </ul>

@@ -19,7 +19,7 @@
       <div class="gradient-overlay"></div>
       <div class="base-bottom"></div>
     </section>
-    <section>
+    <section class="detail-section">
       <div class="container">
         <NuxtLink to="/" class="back-button fade-in-up">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -39,11 +39,13 @@
           <p>Failed to load movie details. Please try again.</p>
         </div>
 
-        <div v-else-if="movie" class="detail-container">
+        <div v-else-if="movie" class="detail-content">
           <div class="detail-card scroll-animate">
-            <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
-              :alt="movie.Title" quality="95" fit="cover" format="webp" />
-            <div class="detail-content">
+            <div class="detail-card-image-wrapper">
+              <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
+                :alt="movie.Title" quality="95" fit="cover" format="webp" />
+            </div>
+            <div class="detail-info">
               <h1>{{ movie.Title }}</h1>
 
               <div class="info-row">

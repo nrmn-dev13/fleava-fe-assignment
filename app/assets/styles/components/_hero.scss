@@ -57,6 +57,9 @@
       top: 0;
       bottom: 0;
       z-index: 1;
+      @media (max-width: $breakpoint-md) {
+        top: 50%;
+      }
     }
 
     .hero-title {
@@ -73,6 +76,10 @@
 
       @media (max-width: $breakpoint-md) {
         font-size: $font-size-5xl;
+        &:nth-child(2),
+        &:nth-child(3) {
+          transform: translateX(0);
+        }
       }
 
       @media (max-width: $breakpoint-sm) {
@@ -89,6 +96,7 @@
       @media (max-width: $breakpoint-sm) {
         flex-direction: column;
         gap: $spacing-sm;
+        align-items: center;
       }
 
       .img-wrapper {
@@ -115,6 +123,7 @@
 
         @media (max-width: $breakpoint-md) {
           font-size: $font-size-sm;
+          transform: translateY(20px);
         }
 
         @media (max-width: $breakpoint-sm) {

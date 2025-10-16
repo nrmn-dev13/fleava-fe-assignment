@@ -27,6 +27,12 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  title: 'MEDIA - Movie Discovery Platform',
+  meta: [
+    { name: 'description', content: 'Discover and explore movies from around the world' }
+  ]
+})
 </script>
 
 <style scoped lang="scss">

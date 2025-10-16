@@ -1,35 +1,41 @@
 // ==========================================================================
 // Detail Page
 // ==========================================================================
-
-.detail-container {
-  max-width: 900px;
+.detail-section {
+  background-color: #15205F;
+}
+.detail-content {
   margin: 0 auto;
-  padding: $spacing-4xl $spacing-xl;
+  padding-bottom: 5rem;
 
   .detail-card {
-    background: $light-bg;
-    border-radius: $border-radius-lg;
     overflow: hidden;
-    box-shadow: $deep-shadow;
+    display: flex;
+    gap: 5rem;
+    // box-shadow: $deep-shadow;
 
-    @media (min-width: $breakpoint-md) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    @include respond-to(md) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .detail-card-image-wrapper {
+      flex: 0 0 auto;
+      width: 30%;
     }
 
     img {
-      @include image-cover;
-      min-height: 400px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
     }
 
-    .detail-content {
-      padding: $spacing-4xl;
+    .detail-info {
 
       h1 {
         font-size: $font-size-5xl;
         margin-bottom: $spacing-xl;
-        color: $text-dark;
+        color: $text-light;
 
         @include respond-to(md) {
           font-size: $font-size-4xl;
@@ -39,16 +45,17 @@
       .info-row {
         margin-bottom: $spacing-lg;
         font-size: $font-size-xl;
+        color: $text-light;
 
         strong {
-          color: $primary-color;
+          color: $text-light;
         }
       }
 
       .plot {
         margin-top: 25px;
         line-height: 1.8;
-        color: #555;
+        color: $text-light;
         font-size: $font-size-lg;
       }
     }

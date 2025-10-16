@@ -2,7 +2,7 @@
   <div class="movie-detail-page">
     <section class="hero">
       <div class="hero-background">
-        <img src="~/assets/img/hero-background.jpg" alt="Hero Background" />
+        <img src="/hero-background.jpg" alt="Hero Background" />
       </div>
       <div class="hero-content">
         <div class="title-wrapper" v-if="movie">

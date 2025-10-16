@@ -2,7 +2,7 @@
   <div class="home-page">
     <section class="hero">
       <div class="hero-background">
-        <img src="~/assets/img/hero-background.jpg" alt="Hero Background" />
+        <img src="/hero-background.jpg" alt="Hero Background" />
       </div>
       <div class="hero-content">
         <div class="title-wrapper">
@@ -12,7 +12,7 @@
         </div>
         <div class="description-wrapper">
           <div class="img-wrapper">
-            <img src="~/assets/img/person.jpg" alt="Hero Background" />
+            <img src="/person.jpg" alt="Hero Background" />
           </div>
           <p>We’re a global media company
             that specializes in emerging markets. We find powerful stories from unique creators, and take them from

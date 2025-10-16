@@ -20,5 +20,12 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@nuxt/image']
+  modules: ['@nuxt/image'],
+
+  image: {
+    domains: ['m.media-amazon.com', 'via.placeholder.com'],
+    alias: {
+      omdb: 'https://m.media-amazon.com'
+    }
+  }
 })

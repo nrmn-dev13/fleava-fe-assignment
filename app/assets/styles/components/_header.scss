@@ -13,7 +13,11 @@
   @include transition(background, box-shadow);
 
   &.scrolled {
-    background: $blue-bg;
+    background: $black-bg;
+    box-shadow: $header-shadow;
+  }
+  @include respond-to(md) {
+    background: $black-bg;
     box-shadow: $header-shadow;
   }
 }
@@ -51,7 +55,7 @@
     right: -100%;
     width: 280px;
     height: calc(100vh - 70px);
-    background: $blue-bg;
+    background: $black-bg;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     transition: right $transition-base $transition-ease;
     overflow-y: auto;

@@ -1,0 +1,108 @@
+// ==========================================================================
+// Movie Section Component
+// ==========================================================================
+
+.movie-section {
+  // padding: 80px 20px;
+  min-height: 500px;
+  position: relative;
+
+  @include respond-to(md) {
+    padding: 60px 15px;
+  }
+  .title-wrapper {
+    margin: 0 50px;
+    .title {
+      font-size: 5rem;
+      font-weight: $font-weight-bold;
+      color: $text-light;
+      text-align: left;
+      letter-spacing: 0.05em;
+
+      @include respond-to(md) {
+        font-size: $font-size-4xl;
+        margin-bottom: $spacing-lg;
+      }
+
+      @include respond-to(xs) {
+        font-size: 1.75rem;
+      }
+    }
+  }
+}
+
+// Loading State
+.loading {
+  @include flex-center;
+  flex-direction: column;
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-light;
+  font-size: 1.3rem;
+  gap: $spacing-xl;
+
+  .spinner {
+    @include spinner(50px, 4px, $light-bg);
+  }
+}
+
+// Error State
+.error {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-light;
+  font-size: 1.3rem;
+}
+
+// Card Component Styles for Movie Section
+.card {
+  background: $light-bg;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  @include card-shadow;
+  cursor: pointer;
+  @include transition(all);
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $hover-shadow;
+
+    .image-wrapper img {
+      transform: scale(1.05);
+    }
+  }
+
+  .image-wrapper {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    @include respond-to(md) {
+      height: 350px;
+    }
+
+    @include respond-to(xs) {
+      height: 300px;
+    }
+
+    img {
+      @include image-cover;
+      @include transition(transform);
+    }
+  }
+}
+
+// Scroll Animation
+.scroll-animate {
+  transition: opacity $transition-slow ease-out,
+    transform $transition-slow ease-out;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

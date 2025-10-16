@@ -1,12 +1,91 @@
 // ==========================================================================
 // Footer Component
 // ==========================================================================
-@import '../abstracts/variables';
+@import "../abstracts/variables";
 .page-footer {
   background: $black-bg;
   color: #e2e8f0;
   padding: $spacing-3xl $spacing-xl $spacing-md;
-  margin-top: $spacing-4xl;
+
+  .footer-title {
+    display: flex;
+    flex-direction: column;
+    line-height: 65px;
+    margin-bottom: 35px;
+    span {
+      font-size: 5rem;
+    }
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 100px;
+    margin-bottom: 20px;
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .left {
+      grid-column-start: 3;
+      @include respond-to(md) {
+        grid-column-start: auto;
+      }
+    }
+    .right {
+      grid-column-start: 4;
+      @include respond-to(md) {
+        grid-column-start: auto;
+      }
+    }
+  }
+  .footer-terms {
+    grid-column: span 2 / span 2;
+    grid-column-start: 4;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-direction: column;
+    ul {
+      display: flex;
+      gap: 15px;
+    }
+  }
+
+  .footer-contact {
+    .newsletter {
+      display: flex;
+      flex-direction: column;
+      span {
+        margin-bottom: 16px;
+        display: block;
+      }
+      input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid white;
+        color: white;
+        margin-bottom: 16px;
+        &:focus-visible {
+          outline: none;
+        }
+      }
+      button {
+        width: max-content;
+        font-size: 14px;
+      }
+    }
+    .social-media {
+      span {
+        margin-bottom: 16px;
+        display: block;
+      }
+    }
+    ul {
+      display: flex;
+      gap: 15px;
+    }
+  }
 
   .footer-content {
     max-width: $container-max-width;
@@ -40,49 +119,6 @@
 
     .text-sm {
       font-size: $font-size-sm;
-    }
-  }
-
-  .footer-links {
-    @include flex-column;
-    gap: $spacing-sm;
-
-    a {
-      color: $text-gray-lighter;
-      text-decoration: none;
-      @include transition(color);
-
-      &:hover {
-        color: $accent-color;
-      }
-    }
-  }
-
-  .social-links {
-    display: flex;
-    gap: $spacing-md;
-  }
-
-  .footer-bottom {
-    max-width: $container-max-width;
-    margin: 0 auto;
-    padding-top: $spacing-xl;
-    border-top: 1px solid #4a5568;
-    text-align: center;
-
-    p {
-      margin: 0;
-      color: $text-gray-light;
-      font-size: $font-size-sm;
-    }
-  }
-
-  @include respond-to(md) {
-    padding: $spacing-xl $spacing-lg $spacing-md;
-
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: $spacing-lg;
     }
   }
 }

@@ -16,6 +16,10 @@ body {
   line-height: $line-height-base;
 }
 
+ul, ol {
+  list-style: none;
+}
+
 a {
   @include link-reset;
 }

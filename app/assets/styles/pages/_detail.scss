@@ -13,15 +13,14 @@
     display: flex;
     gap: 5rem;
     // box-shadow: $deep-shadow;
-
-    @include respond-to(md) {
-      flex-direction: column;
-      gap: 2rem;
-    }
+    
 
     .detail-card-image-wrapper {
       flex: 0 0 auto;
       width: 30%;
+      @include respond-to(md) {
+        width: 100%;
+      }
     }
 
     img {

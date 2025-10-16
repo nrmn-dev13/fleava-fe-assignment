@@ -119,40 +119,34 @@ const { data: movie, pending, error } = await useFetch<MovieDetail>(
 )
 
 onMounted(() => {
-  // Hero section animations
   const tl = gsap.timeline({
     defaults: { ease: 'power3.out' }
   })
 
-  // Animate hero background
   tl.from('.hero-background', {
     scale: 1.2,
     opacity: 0,
     duration: 1.2
   })
 
-  // Animate title
   tl.from('.hero-title', {
     y: 100,
     opacity: 0,
     duration: 0.8
   }, '-=0.6')
 
-  // Animate description wrapper (image + plot)
   tl.from('.description-wrapper', {
     y: 60,
     opacity: 0,
     duration: 0.8
   }, '-=0.4')
 
-  // Animate poster image
   tl.from('.description-wrapper .img-wrapper', {
     scale: 0.8,
     opacity: 0,
     duration: 0.6
   }, '-=0.4')
 
-  // Animate back button
   gsap.from('.back-button', {
     x: -30,
     opacity: 0,
@@ -161,20 +155,17 @@ onMounted(() => {
     ease: 'power2.out'
   })
 
-  // Wait for DOM to be ready and data to load
   nextTick(() => {
     setTimeout(() => {
       const detailCard = document.querySelector('.detail-card')
 
       if (detailCard) {
-        // Set initial visibility to ensure elements are visible
         gsap.set('.detail-card', { clearProps: 'all' })
         gsap.set('.detail-card-image-wrapper', { clearProps: 'all' })
         gsap.set('.detail-info h1', { clearProps: 'all' })
         gsap.set('.info-row', { clearProps: 'all' })
         gsap.set('.plot', { clearProps: 'all' })
 
-        // Detail card animation with ScrollTrigger
         gsap.fromTo('.detail-card',
           {
             y: 80,
@@ -194,7 +185,6 @@ onMounted(() => {
           }
         )
 
-        // Animate detail card image
         gsap.fromTo('.detail-card-image-wrapper',
           {
             scale: 0.9,
@@ -214,7 +204,6 @@ onMounted(() => {
           }
         )
 
-        // Animate detail info title
         gsap.fromTo('.detail-info h1',
           {
             y: 30,
@@ -234,7 +223,6 @@ onMounted(() => {
           }
         )
 
-        // Animate info rows with stagger
         gsap.fromTo('.info-row',
           {
             x: -20,
@@ -255,7 +243,6 @@ onMounted(() => {
           }
         )
 
-        // Animate plot section
         gsap.fromTo('.plot',
           {
             y: 30,
@@ -283,7 +270,3 @@ useHead({
   title: movie.value ? `${movie.value.Title} - Movie Discovery` : 'Movie Details'
 })
 </script>
-
-<style scoped lang="scss">
-// Removed conflicting CSS animations - using GSAP only
-</style>

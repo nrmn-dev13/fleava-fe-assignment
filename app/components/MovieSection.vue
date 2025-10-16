@@ -80,7 +80,7 @@ interface Movie {
 const { data, pending, error } = await useFetch<{ Search: Movie[] }>(
   `https://www.omdbapi.com/?apikey=${config.public.omdbApiKey}&s=movie&type=movie`,
   {
-    key: 'all-movies', // Static key for proper caching
+    key: 'all-movies',
     transform: (response) => response
   }
 )
@@ -92,7 +92,6 @@ const movies = computed(() => {
   return []
 })
 
-// Navigation state
 const isPrevDisabled = ref(true)
 const isNextDisabled = ref(false)
 
@@ -130,7 +129,6 @@ const initGsapAnimations = () => {
   const cards = document.querySelectorAll('.movie-card')
 
   cards.forEach((card, index) => {
-    // Set initial state
     gsap.set(card, {
       y: 100,
       opacity: 0
@@ -191,7 +189,6 @@ onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
   nextTick(() => {
-    // Animate title-wrapper on scroll
     const titleWrapper = document.querySelector('.movie-section .title-wrapper')
     if (titleWrapper) {
       gsap.fromTo('.movie-section .title-wrapper',
@@ -213,7 +210,6 @@ onMounted(() => {
         }
       )
 
-      // Animate the title text with slight delay
       gsap.fromTo('.movie-section .title',
         {
           y: 30,

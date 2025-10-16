@@ -212,13 +212,14 @@ onMounted(() => {
           {
             scrollTrigger: {
               trigger: '.detail-info',
-              start: 'top 75%',
+              start: 'top 90%',
               toggleActions: 'play none none none',
               once: true
             },
             y: 0,
             opacity: 1,
             duration: 0.6,
+            delay: 0.2,
             ease: 'power2.out'
           }
         )
@@ -231,13 +232,14 @@ onMounted(() => {
           {
             scrollTrigger: {
               trigger: '.detail-info',
-              start: 'top 70%',
+              start: 'top 90%',
               toggleActions: 'play none none none',
               once: true
             },
             x: 0,
             opacity: 1,
             duration: 0.5,
+            delay: 0.3,
             stagger: 0.1,
             ease: 'power2.out'
           }
@@ -251,13 +253,14 @@ onMounted(() => {
           {
             scrollTrigger: {
               trigger: '.plot',
-              start: 'top 80%',
+              start: 'top 90%',
               toggleActions: 'play none none none',
               once: true
             },
             y: 0,
             opacity: 1,
             duration: 0.8,
+            delay: 0.5,
             ease: 'power2.out'
           }
         )

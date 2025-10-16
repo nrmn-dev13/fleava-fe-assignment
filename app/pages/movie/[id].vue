@@ -21,7 +21,7 @@
     </section>
     <section class="detail-section">
       <div class="container">
-        <NuxtLink to="/" class="back-button fade-in-up">
+        <NuxtLink to="/" class="back-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -147,12 +147,24 @@ onMounted(() => {
     duration: 0.6
   }, '-=0.4')
 
-  gsap.from('.back-button', {
-    x: -30,
-    opacity: 0,
-    duration: 0.6,
-    delay: 0.3,
-    ease: 'power2.out'
+  // Set initial state for back button
+  gsap.set('.back-button', {
+    x: -50,
+    opacity: 0
+  })
+
+  // Scroll-triggered animation for back button
+  gsap.to('.back-button', {
+    scrollTrigger: {
+      trigger: '.back-button',
+      start: 'top 85%',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse'
+    },
+    x: 0,
+    opacity: 1,
+    duration: 0.8,
+    ease: 'power3.out'
   })
 
   nextTick(() => {

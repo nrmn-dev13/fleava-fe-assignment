@@ -89,6 +89,11 @@
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const config = useRuntimeConfig()
 const route = useRoute()
 
@@ -114,21 +119,164 @@ const { data: movie, pending, error } = await useFetch<MovieDetail>(
 )
 
 onMounted(() => {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px'
-  }
+  // Hero section animations
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' }
+  })
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible')
+  // Animate hero background
+  tl.from('.hero-background', {
+    scale: 1.2,
+    opacity: 0,
+    duration: 1.2
+  })
+
+  // Animate title
+  tl.from('.hero-title', {
+    y: 100,
+    opacity: 0,
+    duration: 0.8
+  }, '-=0.6')
+
+  // Animate description wrapper (image + plot)
+  tl.from('.description-wrapper', {
+    y: 60,
+    opacity: 0,
+    duration: 0.8
+  }, '-=0.4')
+
+  // Animate poster image
+  tl.from('.description-wrapper .img-wrapper', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.6
+  }, '-=0.4')
+
+  // Animate back button
+  gsap.from('.back-button', {
+    x: -30,
+    opacity: 0,
+    duration: 0.6,
+    delay: 0.3,
+    ease: 'power2.out'
+  })
+
+  // Wait for DOM to be ready and data to load
+  nextTick(() => {
+    setTimeout(() => {
+      const detailCard = document.querySelector('.detail-card')
+
+      if (detailCard) {
+        // Set initial visibility to ensure elements are visible
+        gsap.set('.detail-card', { clearProps: 'all' })
+        gsap.set('.detail-card-image-wrapper', { clearProps: 'all' })
+        gsap.set('.detail-info h1', { clearProps: 'all' })
+        gsap.set('.info-row', { clearProps: 'all' })
+        gsap.set('.plot', { clearProps: 'all' })
+
+        // Detail card animation with ScrollTrigger
+        gsap.fromTo('.detail-card',
+          {
+            y: 80,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.detail-card',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out'
+          }
+        )
+
+        // Animate detail card image
+        gsap.fromTo('.detail-card-image-wrapper',
+          {
+            scale: 0.9,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.detail-card-image-wrapper',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+          }
+        )
+
+        // Animate detail info title
+        gsap.fromTo('.detail-info h1',
+          {
+            y: 30,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.detail-info',
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out'
+          }
+        )
+
+        // Animate info rows with stagger
+        gsap.fromTo('.info-row',
+          {
+            x: -20,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.detail-info',
+              start: 'top 70%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power2.out'
+          }
+        )
+
+        // Animate plot section
+        gsap.fromTo('.plot',
+          {
+            y: 30,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.plot',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+          }
+        )
       }
-    })
-  }, observerOptions)
-
-  const animatedElements = document.querySelectorAll('.scroll-animate')
-  animatedElements.forEach((el) => observer.observe(el))
+    }, 200)
+  })
 })
 
 useHead({
@@ -137,7 +285,5 @@ useHead({
 </script>
 
 <style scoped lang="scss">
-.detail-card {
-  animation: fadeInUp 0.6s ease-out;
-}
+// Removed conflicting CSS animations - using GSAP only
 </style>

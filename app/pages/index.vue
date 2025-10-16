@@ -27,11 +27,119 @@
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 useHead({
   title: 'MEDIA - Movie Discovery Platform',
   meta: [
     { name: 'description', content: 'Discover and explore movies from around the world' }
   ]
+})
+
+onMounted(() => {
+  // Hero section animations timeline
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' }
+  })
+
+  // Animate hero background with zoom effect
+  tl.from('.hero-background', {
+    scale: 1.2,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'power2.out'
+  })
+
+  // Animate gradient overlay
+  tl.from('.gradient-overlay', {
+    opacity: 0,
+    duration: 0.8
+  }, '-=0.8')
+
+  // Animate description wrapper
+  tl.from('.description-wrapper', {
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power2.out'
+  }, '-=0.3')
+
+  // Animate person image with scale
+  tl.from('.description-wrapper .img-wrapper', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.6,
+    ease: 'back.out(1.2)'
+  }, '-=0.5')
+
+  // Animate description text
+  tl.from('.description-wrapper p', {
+    y: 20,
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power2.out'
+  }, '-=0.3')
+
+  // Animate base bottom
+  tl.from('.base-bottom', {
+    scaleY: 0,
+    transformOrigin: 'top',
+    duration: 0.6,
+    ease: 'power2.out'
+  }, '-=0.4')
+
+  // Scroll-triggered animation for title-wrapper
+  nextTick(() => {
+    setTimeout(() => {
+      if (document.querySelector('.title-wrapper')) {
+        // Animate title-wrapper container on scroll
+        gsap.fromTo('.title-wrapper',
+          {
+            y: 80,
+            opacity: 0,
+            scale: 0.95
+          },
+          {
+            scrollTrigger: {
+              trigger: '.title-wrapper',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: 'power3.out'
+          }
+        )
+
+        // Animate title lines with stagger effect on scroll
+        gsap.fromTo('.hero-title',
+          {
+            y: 100,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.title-wrapper',
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+              once: true
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+          }
+        )
+      }
+    }, 100)
+  })
 })
 </script>
 

@@ -17,14 +17,6 @@
         </nav>
       </div>
 
-      <div class="footer-section">
-        <h4>Connect</h4>
-        <div class="social-links">
-          <slot name="social">
-            <p class="text-sm">Powered by OMDb API</p>
-          </slot>
-        </div>
-      </div>
     </div>
 
     <div class="footer-bottom">

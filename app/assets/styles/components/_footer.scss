@@ -1,9 +1,9 @@
 // ==========================================================================
 // Footer Component
 // ==========================================================================
-
+@import '../abstracts/variables';
 .page-footer {
-  background: $gradient-footer;
+  background: $black-bg;
   color: #e2e8f0;
   padding: $spacing-3xl $spacing-xl $spacing-md;
   margin-top: $spacing-4xl;

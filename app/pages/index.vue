@@ -22,60 +22,74 @@
       <div class="gradient-overlay"></div>
       <div class="base-bottom"></div>
     </section>
-    <div class="container">
-      <section>
-        <div v-if="pending" class="loading">
-          <div class="spinner"></div>
-          <p>Loading movies...</p>
+    <section class="movie-section">
+      <div v-if="pending" class="loading">
+        <div class="spinner"></div>
+        <p>Loading movies...</p>
+      </div>
+
+      <div v-else-if="error" class="error">
+        <p>Failed to load movies. Please try again later.</p>
+      </div>
+
+      <div v-else class="movie-slider">
+        <h2>TITLE</h2>
+        <!-- Custom Navigation Buttons -->
+        <div class="swiper-button-prev-custom" :class="{ 'swiper-button-hidden': isPrevDisabled }">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </div>
+        <div class="swiper-button-next-custom" :class="{ 'swiper-button-hidden': isNextDisabled }">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </div>
 
-        <div v-else-if="error" class="error">
-          <p>Failed to load movies. Please try again later.</p>
-        </div>
-
-        <div v-else class="movie-slider">
-          <Swiper
-            :modules="[SwiperNavigation]"
-            :slides-per-view="1"
-            :space-between="20"
-            :navigation="true"
-            :breakpoints="{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-            }"
-          >
-            <SwiperSlide v-for="(movie, index) in movies" :key="movie.imdbID">
-              <div class="card scroll-animate"
-                :style="{ animationDelay: `${index * 0.1}s` }" @click="navigateToDetail(movie.imdbID)">
+        <Swiper
+          :modules="[SwiperNavigation]"
+          :slides-per-view="1"
+          :space-between="20"
+          :navigation="{
+            nextEl: '.swiper-button-next-custom',
+            prevEl: '.swiper-button-prev-custom',
+          }"
+          :breakpoints="{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 30,
+            },
+          }"
+          @swiper="onSwiper"
+          @slide-change="onSlideChange"
+        >
+          <SwiperSlide v-for="(movie, index) in movies" :key="movie.imdbID">
+            <div class="card scroll-animate"
+              :style="{ animationDelay: `${index * 0.1}s` }" @click="navigateToDetail(movie.imdbID)">
+              <div class="image-wrapper">
                 <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'"
                   :alt="movie.Title" loading="lazy" quality="90" fit="cover" format="webp" @error="handleImageError" />
-                <div class="card-content">
-                  <h3>{{ movie.Title }}</h3>
-                  <p>{{ movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1) }}</p>
-                  <span class="year">{{ movie.Year }}</span>
-                </div>
               </div>
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </section>
-    </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -105,6 +119,25 @@ const movies = computed(() => {
   }
   return []
 })
+
+// Navigation state
+const isPrevDisabled = ref(true)
+const isNextDisabled = ref(false)
+let swiperInstance: SwiperType | null = null
+
+const onSwiper = (swiper: SwiperType) => {
+  swiperInstance = swiper
+  updateNavigationState(swiper)
+}
+
+const onSlideChange = (swiper: SwiperType) => {
+  updateNavigationState(swiper)
+}
+
+const updateNavigationState = (swiper: SwiperType) => {
+  isPrevDisabled.value = swiper.isBeginning
+  isNextDisabled.value = swiper.isEnd
+}
 
 const navigateToDetail = (imdbID: string) => {
   router.push(`/movie/${imdbID}`)

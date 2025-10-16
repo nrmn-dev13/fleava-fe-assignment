@@ -121,6 +121,15 @@
           text-align: center;
         }
       }
+      .plot-preview {
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.6;
+      }
     }
 
     .hero-subtitle {

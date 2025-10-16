@@ -1,70 +1,88 @@
 <template>
-  <div class="container">
-    <NuxtLink to="/" class="back-button fade-in-up">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      Back to Movies
-    </NuxtLink>
-
-    <div v-if="pending" class="loading">
-      <div class="spinner"></div>
-      <p>Loading movie details...</p>
-    </div>
-
-    <div v-else-if="error" class="error">
-      <p>Failed to load movie details. Please try again.</p>
-    </div>
-
-    <div v-else-if="movie" class="detail-container">
-      <div class="detail-card scroll-animate">
-        <NuxtImg
-          :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
-          :alt="movie.Title"
-          quality="95"
-          fit="cover"
-          format="webp"
-        />
-        <div class="detail-content">
-          <h1>{{ movie.Title }}</h1>
-
-          <div class="info-row">
-            <strong>Year:</strong> {{ movie.Year }}
+  <div class="movie-detail-page">
+    <section class="hero">
+      <div class="hero-background">
+        <img src="~/assets/img/hero-background.jpg" alt="Hero Background" />
+      </div>
+      <div class="hero-content">
+        <div class="title-wrapper" v-if="movie">
+          <span class="hero-title">{{ movie.Title }}</span>
+        </div>
+        <div class="description-wrapper" v-if="movie">
+          <div class="img-wrapper">
+            <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
+              :alt="movie.Title" quality="95" fit="cover" format="webp" />
           </div>
+          <p class="plot-preview">{{ movie.Plot }}</p>
+        </div>
+      </div>
+      <div class="gradient-overlay"></div>
+      <div class="base-bottom"></div>
+    </section>
+    <section>
+      <div class="container">
+        <NuxtLink to="/" class="back-button fade-in-up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Movies
+        </NuxtLink>
 
-          <div class="info-row">
-            <strong>Rated:</strong> {{ movie.Rated }}
-          </div>
+        <div v-if="pending" class="loading">
+          <div class="spinner"></div>
+          <p>Loading movie details...</p>
+        </div>
 
-          <div class="info-row">
-            <strong>Runtime:</strong> {{ movie.Runtime }}
-          </div>
+        <div v-else-if="error" class="error">
+          <p>Failed to load movie details. Please try again.</p>
+        </div>
 
-          <div class="info-row">
-            <strong>Genre:</strong> {{ movie.Genre }}
-          </div>
+        <div v-else-if="movie" class="detail-container">
+          <div class="detail-card scroll-animate">
+            <NuxtImg :src="movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400x600?text=No+Image'"
+              :alt="movie.Title" quality="95" fit="cover" format="webp" />
+            <div class="detail-content">
+              <h1>{{ movie.Title }}</h1>
 
-          <div class="info-row">
-            <strong>Director:</strong> {{ movie.Director }}
-          </div>
+              <div class="info-row">
+                <strong>Year:</strong> {{ movie.Year }}
+              </div>
 
-          <div class="info-row">
-            <strong>Actors:</strong> {{ movie.Actors }}
-          </div>
+              <div class="info-row">
+                <strong>Rated:</strong> {{ movie.Rated }}
+              </div>
 
-          <div class="info-row" v-if="movie.imdbRating">
-            <strong>IMDB Rating:</strong> {{ movie.imdbRating }}/10
-          </div>
+              <div class="info-row">
+                <strong>Runtime:</strong> {{ movie.Runtime }}
+              </div>
 
-          <div class="plot">
-            <strong>Plot:</strong><br />
-            {{ movie.Plot }}
+              <div class="info-row">
+                <strong>Genre:</strong> {{ movie.Genre }}
+              </div>
+
+              <div class="info-row">
+                <strong>Director:</strong> {{ movie.Director }}
+              </div>
+
+              <div class="info-row">
+                <strong>Actors:</strong> {{ movie.Actors }}
+              </div>
+
+              <div class="info-row" v-if="movie.imdbRating">
+                <strong>IMDB Rating:</strong> {{ movie.imdbRating }}/10
+              </div>
+
+              <div class="plot">
+                <strong>Plot:</strong><br />
+                <p class="plot-text">{{ movie.Plot }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -117,7 +135,6 @@ useHead({
 </script>
 
 <style scoped lang="scss">
-
 .detail-card {
   animation: fadeInUp 0.6s ease-out;
 }
